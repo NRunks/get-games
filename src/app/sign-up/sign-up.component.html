@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+  <mat-icon svgIcon="home" routerLink="/" matTooltip="Home" matTooltipPosition="below" aria-label="Go to the homepage"
+    class="button-icon first-button"></mat-icon>
+</mat-toolbar>
+<mat-tab-group>
+  <mat-tab label="Sign Up">
+    <div class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+      <div fxFlex.gt-lg="33" fxFlex.lg="45" fxFlex.md="45" fxFlex.lt-md="100">
+        <mat-card id="all-games-container-card">
+          <mat-card-header>
+            <div mat-card-avatar class="all-games-logo"></div>
+          </mat-card-header>
+          <div class="banner-logo" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+            <img mat-card-image src="../../assets/favicon-256.png" alt="All Games Banner" fxFlex="45">
+          </div>
+          <mat-card-content>
+            <div class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="space-between center">
+              <div fxFlex="100%">
+                <mat-form-field style="width: 100%;">
+                  <input matInput placeholder="Username" [formControl]="userID1" required>
+                </mat-form-field>
+              </div>
+              <div fxFlex="45">
+                <mat-form-field style="width: 100%;">
+                  <input matInput placeholder="City" [formControl]="city1" required>
+                </mat-form-field>
+              </div>
+              <div fxFlex="45">
+                <mat-form-field style="width: 100%;">
+                  <input matInput placeholder="State" [formControl]="state1" required>
+                </mat-form-field>
+              </div>
+              <div fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                  <input matInput type="password" placeholder="Password" [formControl]="password1" required>
+                </mat-form-field>
+              </div>
+              <div fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                  <input matInput type="password" placeholder="Re-type Password" [formControl]="reTypePassword1"
+                    required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
+              <button fxFlex="45" mat-raised-button color="primary" id="signUpButton" #signUpButton (click)="handleSignUpButtonClick($event)">Sign
+                Up!</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Log In">
+    <div class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+      <div fxFlex.gt-lg="33" fxFlex.lg="45" fxFlex.md="45" fxFlex.lt-md="100">
+        <mat-card id="all-games-container-card">
+          <mat-card-header>
+            <div mat-card-avatar class="all-games-logo"></div>
+          </mat-card-header>
+          <div class="banner-logo" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+            <img mat-card-image src="../../assets/favicon-256.png" alt="All Games Banner" fxFlex="45">
+          </div>
+          <mat-card-content>
+            <div class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="space-between center">
+              <div fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                  <input matInput placeholder="Username" [formControl]="userID2" required>
+                </mat-form-field>
+              </div>
+              <div fxFlex="100">
+                <mat-form-field style="width: 100%;">
+                  <input matInput type="password" placeholder="Password" [formControl]="password2" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
+              <button fxFlex="45" mat-raised-button color="primary" id="LogInButton" #signUpButton (click)="handleLogInButtonClick($event)">Log-In</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

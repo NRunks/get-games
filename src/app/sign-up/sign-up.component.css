@@ -1,0 +1,17 @@
+.signup-container{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .signup-container > * {
+    width: 100%;
+  }
+
+  img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .banner-logo {
+    background: rgb(32, 156, 238);
+  }
