@@ -1,0 +1,46 @@
+  .column.column-1 {
+    float: left;
+    padding: 28px;
+  }
+
+  .column.column-2 {
+    float: left;
+    padding: 28px;
+  }
+
+  .column.column-3 {
+    float: right;
+    padding: 0px 28px 28px 28px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .column-1 > img {
+      width: 48px;
+      height:48px;
+      border-radius: 50%;
+  }
+
+  .column-2 {
+      min-width: 50%;
+  }
+
+  .submit-container {
+      position: absolute;
+      bottom: 0px;
+      height: 75px;
+      width: 100vw;
+  }
+
+  #chat-submit-input {
+    padding: 0px 20px 0px 20px;
+  }
+
+  #chat-submit-button {
+      width: 100px;
+  }

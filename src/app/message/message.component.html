@@ -1,0 +1,33 @@
+<!--<p>
+  message works!
+</p>-->
+<div *ngIf="messages$ | async else loading">
+  <div *ngFor="let message of messages">
+    <div class="row">
+      <div class="column column-1">
+        <img src="../../assets/adult-asia-attractive-937453.jpg" alt="...">
+      </div>
+      <div class="column column-2">
+        <h3 matLine> {{message.senderID}} </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column column-3">
+        <p> -- {{message.content}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="submit-container" fxLayout='row'>
+    <mat-form-field appearance="outline" id="chat-submit-input" fxFlex="80">
+      <input matInput placeholder="Enter your message">
+    </mat-form-field>
+    <button id="chat-submit-button" mat-raised-button disabled>Send</button>
+  </div>
+</div>
+<ng-template #loading>
+  <div fxLayoutAlign="center center" fxLayoutGap="10px" fxLayout="row">
+    <div fxLayout="row" fxFlex *ngIf="isLoading">
+      <mat-spinner style="margin:0 auto;"></mat-spinner>
+    </div>
+  </div>
+</ng-template>
