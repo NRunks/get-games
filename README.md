@@ -1,5 +1,5 @@
 # Get Games app
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.0. It also utilizes MySQL.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.0. It also utilizes [MySQL](https://www.mysql.com/).
 
 ![](src/assets/favicon-256.png)
 
