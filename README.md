@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.0.
 
-![](/app/assets/favicon-256.png)
+![](src/assets/favicon-256.png)
 
 The app can be found <a href="http://35.190.160.173:9090">here.</a>
 
