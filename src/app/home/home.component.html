@@ -1,0 +1,106 @@
+<mat-toolbar color="primary" *ngIf="!mobileQuery.matches">
+  <mat-icon svgIcon="home" routerLink="/" matTooltip="Home" matTooltipPosition="below" aria-label="Go to the homepage"
+    class="button-icon first-button"></mat-icon>
+  <mat-icon svgIcon="market" routerLink="/home/market" matTooltip="Market" matTooltipPosition="below" aria-label="Go to the market"
+    class="button-icon"></mat-icon>
+  <mat-icon svgIcon="shoppingCart" routerLink="/home/cart" matTooltip="Shopping Cart" matTooltipPosition="below"
+    aria-label="Go to your shopping cart" class="button-icon" matBadge="{{getCartCount()}}" matBadgePosition="below"
+    matBadgeColor="accent"></mat-icon>
+  <mat-icon svgIcon="notifications" matTooltip="Notifications" matTooltipPosition="below" aria-label="Go to your notifications"
+    class="button-icon" matBadge="{{getNotificationCount()}}" matBadgePosition="below" matBadgeColor="accent"
+    [matMenuTriggerFor]="notificationMenu"></mat-icon>
+  <mat-menu #notificationMenu="matMenu">
+    <button mat-menu-item disabled>
+      <!----<mat-icon class="notification-icon" svgIcon="emptyBox" [inline]="true"></mat-icon>-->
+      <mat-icon>notifications_off</mat-icon>
+      <span class="notification-text">No notifications received yet.</span>
+    </button>
+  </mat-menu>
+  <mat-icon *ngIf="isAuthenticated()" svgIcon="messages" (click)="routeToMessages()" matTooltip="Messages" matTooltipPosition="below" aria-label="Go to your messages"
+    class="button-icon" matBadge="{{getUnreadMessageCount()}}" matBadgePosition="below" matBadgeColor="accent"></mat-icon>
+  <div fxFlex></div>
+  <mat-icon *ngIf="isAuthenticated()" svgIcon="account" matTooltip="Account Settings" matTooltipPosition="below" aria-label="Go to account settings"
+   [matMenuTriggerFor]="accountMenu"></mat-icon>
+    <mat-menu #accountMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_box</mat-icon>
+          <span>Account</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>history</mat-icon>
+          <span>Order History</span>
+        </button>
+      </mat-menu>
+  <mat-icon svgIcon="login" *ngIf="!isAuthenticated()" (click)="login()" matTooltip="Login" matTooltipPosition="below"
+    aria-label="Login" class="button-icon"></mat-icon>
+  <mat-icon svgIcon="logout" *ngIf="isAuthenticated()" (click)="logout()" matTooltip="Logout" matTooltipPosition="below"
+    aria-label="Logout" class="button-icon"></mat-icon>
+</mat-toolbar>
+<mat-toolbar color="primary" class="home-mobile-toolbar" *ngIf="mobileQuery.matches">
+  <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="home-app-name">GetGames</h1>
+</mat-toolbar>
+<!--<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>-->
+<mat-sidenav-container>
+  <mat-sidenav id="home-sidenav" #snav [mode]="over" [fixedInViewport]="false" fixedTopGap="56">
+    <mat-nav-list>
+      <a mat-list-item>
+        <mat-icon svgIcon="homeBlue" routerLink="/" matTooltip="Home" matTooltipPosition="below" aria-label="Go to the homepage"
+          class="inline-button-icon first-button inline"></mat-icon>
+      </a>
+      <a mat-list-item>
+        <mat-icon svgIcon="marketBlue" routerLink="/home/market" matTooltip="Market" matTooltipPosition="below" aria-label="Go to the market"
+          class="inline-button-icon inline"></mat-icon>
+      </a>
+      <a mat-list-item>
+        <mat-icon svgIcon="shoppingCartBlue" routerLink="/home/cart" matTooltip="Shopping Cart" matTooltipPosition="below"
+          aria-label="Go to your shopping cart" class="inline-button-icon inline" matBadge="{{getCartCount()}}" matBadgePosition="below"
+          matBadgeColor="accent"></mat-icon>
+      </a>
+      <a mat-list-item>
+        <mat-icon svgIcon="notificationsBlue" matTooltip="Notifications" matTooltipPosition="below" aria-label="Go to your notifications"
+          class="inline-button-icon inline" matBadge="{{getNotificationCount()}}" matBadgePosition="below" matBadgeColor="accent"
+          [matMenuTriggerFor]="notificationMenu"></mat-icon>
+      </a>
+        <mat-menu #notificationMenu="matMenu">
+          <button mat-menu-item disabled>
+            <!----<mat-icon class="notification-icon" svgIcon="emptyBox" [inline]="true"></mat-icon>-->
+            <mat-icon>notifications_off</mat-icon>
+            <span class="notification-text">No notifications received yet.</span>
+          </button>
+        </mat-menu>
+      <a mat-list-item *ngIf="isAuthenticated()">
+        <mat-icon (click)="routeToMessages()" svgIcon="messagesBlue" matTooltip="Messages" matTooltipPosition="below"
+          aria-label="Go to your messages" class="inline-button-icon inline" matBadge="{{getUnreadMessageCount()}}" matBadgePosition="below"
+          matBadgeColor="accent"></mat-icon>
+      </a>
+      <a mat-list-item>
+        <mat-icon *ngIf="isAuthenticated()" svgIcon="accountBlue" matTooltip="Account Settings" matTooltipPosition="below" aria-label="Go to account settings"
+          class="inline-button-icon inline"></mat-icon>
+      </a>
+      <a mat-list-item *ngIf="!isAuthenticated()" >
+        <mat-icon svgIcon="loginBlue" (click)="login()" matTooltip="Login" matTooltipPosition="below"
+          aria-label="Login" class="inline-button-icon inline"></mat-icon>
+      </a>
+      <a mat-list-item *ngIf="isAuthenticated()">
+        <mat-icon svgIcon="logoutBlue" (click)="logout()" matTooltip="Logout" matTooltipPosition="below"
+          aria-label="Logout" class="inline-button-icon inline"></mat-icon>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

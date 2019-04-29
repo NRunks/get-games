@@ -1,0 +1,24 @@
+#home-sidenav {
+    position: fixed;
+}
+.button-icon {
+    cursor: pointer;
+}
+
+.button-icon:not(.first-button) {
+    margin-left: 72px;
+}
+
+.inline-button-icon {
+    margin: 0px;
+}
+
+.notification-text {
+    font-size: 14px;
+}
+
+/*.notification-icon {
+    width: 16px;
+    height: 16px;
+    transform: scale(2);
+}*/
