@@ -1,0 +1,13 @@
+  table {
+    width: 100%;
+    margin: 75px auto 75px auto;
+  }
+
+  tr.mat-footer-row {
+    font-weight: bold;
+  }
+
+  img#empty-cart {
+    min-width: 300px;
+    max-width: 800px;
+  }

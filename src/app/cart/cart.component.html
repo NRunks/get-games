@@ -1,0 +1,95 @@
+<div [@routerTransition]>
+
+  <mat-card id="all-games-container-card">
+    <mat-card-header>
+      <div mat-card-avatar class="all-games-logo"></div>
+    </mat-card-header>
+    <img mat-card-image src="../../assets/all-games-banner_cropped.png" alt="All Games Banner">
+    <mat-card-content>
+      <div *ngIf="gamesInCart.length==0" fxLayout="column wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+        <h1>Your cart is empty!</h1>
+          <img id="empty-cart" src="http://35.190.160.173:9090/assets/empty_cart_picture_black.jpg" alt="Empty cart" />
+      </div>
+      <!---<button mat-raised-button id="all-gamesButton" #all-gamesButton (click)="handleall-gamesButtonClick($event)" mat-button>Import all-games contacts</button>-->
+      <div *ngIf="gamesInCart.length>0">
+        <div class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center" *ngIf="gameInventory$ | async; else loading">
+          <mat-card class="all-games-contacts" *ngFor="let game of gamesInCart; let i = index" fxFlex.gt-lg="33%"
+            fxFlex.lg="45%" fxFlex.md="45%" fxFlex.lt-md="100%" [@loadGameContacts]>
+            <mat-card-header>
+              <img *ngIf="game.Platform=='Playstation 4'" mat-card-avatar src="http://35.190.160.173:9090/assets/playstation_logo.svg"
+                alt="Playstation 4 logo">
+              <img *ngIf="game.Platform=='Xbox One'" mat-card-avatar src="http://35.190.160.173:9090/assets/xbox.svg" alt="Xbox One logo">
+              <img *ngIf="game.Platform=='Nintendo Switch'" mat-card-avatar src="http://35.190.160.173:9090/assets/nintendo-switch.svg"
+                alt="Nintendo Switch logo">
+              <img *ngIf="game.Platform=='Windows 10'" mat-card-avatar src="http://35.190.160.173:9090/assets/microsoft-windows-22.svg"
+                alt="Windows logo">
+              <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                {{game.Name}}
+              </mat-card-title>
+              <mat-card-subtitle>{{game.Publisher}}</mat-card-subtitle>
+              <div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
+                <div fxFlex></div>
+                <button mat-icon-button (click)="deleteFromCart(i, game.GameID, game.Name, game.Platform)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </div>
+            </mat-card-header>
+            <img mat-card-image src="../../assets/{{game.PictureUrl}}.png" alt="All Games Banner">
+            <mat-card-content>
+              <div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
+                <span>{{getQuantity(game.GameID, game.Platform) | i18nPlural: itemPluralMapping}}
+                  ${{getPrice(game.GameID) | number : '1.2-2'}}</span>
+                <div fxFlex></div>
+                <span>{{game.Platform}}</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <mat-divider></mat-divider>
+        <table mat-table [dataSource]="gamesInCart" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let game"> {{game.Name}} </td>
+            <td mat-footer-cell *matFooterCellDef> Total </td>
+          </ng-container>
+
+          <ng-container matColumnDef="platform">
+            <th mat-header-cell *matHeaderCellDef> Platform </th>
+            <td mat-cell *matCellDef="let game"> {{game.Platform}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let game"> ${{game.sellingPrice | number : '1.2-2'}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td mat-cell *matCellDef="let game"> {{game.Quantity}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let game"> ${{getTotal(game.sellingPrice, game.Quantity) | number : '1.2-2'}} </td>
+            <td mat-footer-cell *matFooterCellDef> ${{getTotalCartCost() | number : '1.2-2'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+        <div class="container" fxLayout="row wrap" fxLayoutAlign="center center">
+          <button fxFlex="45%" mat-raised-button color="primary" id="proceedToCheckoutButton" #proceedToCheckoutButton
+            (click)="handleProceedToCheckoutButtonClick($event)">Proceed to checkout</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
