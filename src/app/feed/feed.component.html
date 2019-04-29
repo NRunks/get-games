@@ -1,0 +1,55 @@
+<h1>Welcome to your one-stop gaming destination!</h1>
+<div fxLayoutAlign="center center" fxLayoutGap="10px" fxLayout="row">
+  <div fxLayout="row" fxFlex *ngIf="isLoading">
+    <mat-spinner style="margin:0 auto;"></mat-spinner>
+  </div>
+</div>
+<div class="content-container">
+  <h2><b>POPULAR GAMES RIGHT NOW</b></h2>
+  <hr>
+  <mat-grid-list #grid1 rowHeight="2:1" cols="{{grid1.cols}}">
+    <mat-grid-tile *ngFor="let game of popularGames" class="clickable-feed-item">
+      <a href="./home/market"><img src="../../assets/{{game.PictureUrl}}.png"></a>
+      <mat-grid-tile-header>
+        <h3><a href="./home/market">{{game.Name}}</a></h3>
+      </mat-grid-tile-header>
+      <mat-grid-tile-footer>
+        <h3><b>{{game.Rating}}/5.0</b></h3>
+        <mat-icon>star_rate</mat-icon>
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div class="content-container">
+  <h2><b>RECENT REVIEWS</b></h2>
+  <hr>
+  <mat-grid-list #grid2 rowHeight="2:1" cols="{{grid2.cols}}">
+    <mat-grid-tile *ngFor="let game of recentReviews" class="clickable-feed-item">
+      <a href="{{game.ContentLink}}"><img src="../../assets/{{game.PictureUrl}}.png"></a>
+      <mat-grid-tile-header>
+          <h3><a href="{{game.ContentLink}}">{{game.Name}}</a></h3>
+      </mat-grid-tile-header>
+      <mat-grid-tile-footer>
+          <h3><b><a href="./home/market">{{game.Description | truncateText : 125 : false}}</a></b></h3>
+      </mat-grid-tile-footer>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div class="content-container">
+  <h2><b>TRAILERS</b></h2>
+  <hr>
+  <mat-grid-list #grid3 rowHeight="2:1" cols="{{grid3.cols}}">
+    <mat-grid-tile *ngFor="let game of popularTrailers">
+      <iframe [src]="game.VideoEmbedUrl | safeUrl" 
+      scrolling="no" frameborder="0" allowfullscreen>
+      </iframe>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!--<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile><iframe src="http://widgets.ign.com/video/embed/content.html?url=https://www.ign.com/videos/2018/09/24/call-of-duty-black-ops-4-launch-gameplay-trailer"
+      width="468" height="263" scrolling="no" frameborder="0" allowfullscreen></iframe></mat-grid-tile>
+  <mat-grid-tile>2</mat-grid-tile>-->

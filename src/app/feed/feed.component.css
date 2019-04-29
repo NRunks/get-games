@@ -1,0 +1,45 @@
+h1 {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+h2 {
+  margin-left: 24px;
+}
+
+mat-grid-tile {
+  background: white;
+  cursor: pointer;
+}
+
+.content-container {
+  margin-top: 100px;
+}
+
+.clickable-feed-item:hover {
+  opacity: 0.5;
+}
+
+a {
+  color: white;
+}
+
+
+/*h2:before {
+    
+    content : "";
+    position: absolute;
+    left    : 0;
+    bottom  : 0;
+    height  : 1px;
+    width   : 50%;  
+    border-bottom: 5px solid #6200EE;
+}*/
+
+hr {
+  width: 70%;
+  border-bottom: 5px solid #6200EE;
+  border-radius: 2px;
+  text-align: left;
+  margin-left: 0;
+}
