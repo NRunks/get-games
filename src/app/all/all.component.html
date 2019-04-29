@@ -1,0 +1,140 @@
+<div [@routerTransition] id="all-games-container">
+
+  <mat-card id="all-games-container-card">
+    <mat-card-header>
+      <div mat-card-avatar class="all-games-logo"></div>
+    </mat-card-header>
+    <div id="gameCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="../../assets/sony-ps4-banner_cropped.png" alt="PS4 Banner">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../../assets/Xbox-One-Banner_cropped.png" alt="XBox One Banner">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../../assets/nintendo-switch-banner-cropped.png" alt="Nintendo Switch Banner">
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="../../assets/windows-10-logo_cropped.png" alt="Microsoft Windows Banner">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#gameCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#gameCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <!--<img mat-card-image src="../../assets/all-games-banner_cropped.png" alt="All Games Banner">-->
+
+    <mat-card-content>
+      <!---<button mat-raised-button id="all-gamesButton" #all-gamesButton (click)="handleall-gamesButtonClick($event)" mat-button>Import all-games contacts</button>-->
+      <mat-button-toggle-group name="whichPlatform" aria-label="Filter Games By Platform" [value]="selectedToggleButtonVal">
+        <mat-button-toggle value="All" (change)="getAllGamesButtonClick($event)">All</mat-button-toggle>
+        <mat-button-toggle value="XBoxOne" (change)="getXboxOneGamesButtonClick($event)">Xbox One</mat-button-toggle>
+        <mat-button-toggle value="PS4" (change)="getPS4GamesButtonClick($event)">Playstation 4</mat-button-toggle>
+        <mat-button-toggle value="NintendoSw" (change)="getNintendoSwitchGamesButtonClick($event)">Nintendo Switch</mat-button-toggle>
+        <mat-button-toggle value="PC" (change)="getPCGamesButtonClick($event)">PC</mat-button-toggle>
+      </mat-button-toggle-group>
+      <div class="container game-row" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center"
+        *ngIf="gameInventory$ | async; else loading">
+        <mat-card class="all-games-contacts" *ngFor="let game of gamesDisplayed; let i=index"
+          fxFlex.gt-lg="33%" fxFlex.lg="45%" fxFlex.md="45%" fxFlex.lt-md="100%" [@loadGameContacts]>
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <div fxFlex="20%" class="game-card-icons">
+              <div fxFlex></div>
+              <!---<mat-icon fxFlex-xs="10%" id="outlook-edit-icon">mode_edit</mat-icon>
+                          <mat-icon fxFlex-xs="10%" (click)=remove(i) id="outlook-delete-icon">delete</mat-icon>-->
+            </div>
+            <h2 fxFlex="80%">{{game.Name}}</h2>
+          </mat-card-title>
+          <img mat-card-image src="../../assets/{{game.PictureUrl}}.png" alt="All Games Banner">
+          <mat-card-content>
+            <form [formGroup]="form" novalidate>
+              <div formArrayName="orders" class="container" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="space-evenly center">
+                <div fxFlex="30%">
+                  <!--<div *ngIf="isInStock(game.GameID)">-->
+                  <span><b>{{game.Rating}}/5.0</b>
+                    <mat-icon>star_rate</mat-icon>
+                  </span>
+                  <!--</div>-->
+                </div>
+                <div fxFlex="30%">
+                  <span><b>{{game.Release_year}}</b></span>
+                </div>
+                <div fxFlex="30%" fxLayout="row wrap" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start center">
+                  <div *ngIf="game.OnXboxOne==1">
+                    <mat-icon svgIcon="xboxOne"></mat-icon>
+                  </div>
+                  <div *ngIf="game.OnPS4==1">
+                    <mat-icon svgIcon="ps4"></mat-icon>
+                  </div>
+                  <div *ngIf="game.OnNintendoSw==1">
+                    <mat-icon svgIcon="nintendoSwitch"></mat-icon>
+                  </div>
+                  <div *ngIf="game.OnPC==1">
+
+                    <mat-icon svgIcon="windows"></mat-icon>
+                  </div>
+                </div>
+                <div [formGroupName]="i" *ngIf="isInStock(game.GameID) && animatedButtonIndex!==i" fxLayout="row wrap"
+                  fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center center">
+                  <div fxFlex="100%"><span>{{getNumberOfSellers(game.GameID) | i18nPlural: itemPluralMapping}} Starting
+                      at
+                      ${{getPrice(game.GameID) | number : '1.2-2'}}</span></div>
+                  <mat-form-field fxFlex="60%">
+                    <mat-select placeholder="Platform" formControlName="platform" required>
+                      <mat-option>--</mat-option>
+                      <mat-option *ngIf="game.OnPS4==1" value="Playstation 4">Playstation 4</mat-option>
+                      <mat-option *ngIf="game.OnXboxOne==1" value="Xbox One">Xbox One</mat-option>
+                      <mat-option *ngIf="game.OnNintendoSw==1" value="Nintendo Switch">Nintendo Switch</mat-option>
+                      <mat-option *ngIf="game.OnPC==1" value="Windows 10">Windows 10</mat-option>
+                    </mat-select>
+                    <mat-error>Please choose a platform</mat-error>
+                    <!---<mat-hint>{{animalControl.value?.sound}}</mat-hint>-->
+                  </mat-form-field>
+                  <mat-form-field fxFlex="30%">
+                    <mat-select placeholder="Quantity" formControlName="quantity" required>
+                      <mat-option>--</mat-option>
+                      <mat-option value="1">1</mat-option>
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>
+                      <mat-option value="4">4</mat-option>
+                      <mat-option value="5">5</mat-option>
+                      <mat-option value="6">6</mat-option>
+                      <mat-option value="7">7</mat-option>
+                      <mat-option value="8">8</mat-option>
+                      <mat-option value="9">9</mat-option>
+                      <mat-option value="10">10</mat-option>
+                    </mat-select>
+                    <mat-error>Please choose a quantity</mat-error>
+                  </mat-form-field>
+                  <div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="center center"><button mat-raised-button color="primary"
+                      id="addToCartButton" (click)="handleAddToCartButtonClick($event, i)">Add to Cart</button>
+                  </div>
+                </div>
+                <div *ngIf="isInStock(game.GameID) && buttonAnimating && animatedButtonIndex==i">
+                  <button mat-raised-button color="accent" id="addToCartButton" disabled>Added to
+                    Cart!</button>
+                </div>
+                <div *ngIf="!isInStock(game.GameID)">
+                  <button mat-flat-button disabled>OUT OF STOCK!</button>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<ng-template #loading>
+  <div fxLayoutAlign="center center" fxLayoutGap="10px" fxLayout="row">
+    <div fxLayout="row" fxFlex *ngIf="isLoading">
+      <mat-spinner style="margin:0 auto;"></mat-spinner>
+    </div>
+  </div>
+</ng-template>

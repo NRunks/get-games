@@ -1,0 +1,7 @@
+#all-games-container {
+    height: 100vh;
+}
+
+.game-row {
+    margin-bottom: 32px;
+}
